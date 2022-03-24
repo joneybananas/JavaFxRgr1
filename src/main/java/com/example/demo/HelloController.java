@@ -1,65 +1,121 @@
 package com.example.demo;
 
 import com.example.account.Account;
-import com.example.addModal.AddModalController;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Optional;
 
 public class HelloController {
-    private Account account;
+    private ObservableList<Account> accountList = FXCollections.observableArrayList();
 
     @FXML
-    private Button addBtn;
-
-    @FXML
-    private Button countBtn;
+    private Button addBtn, deleteBtn, countBtn, saveBtn;
 
     @FXML
     private TextField searchInput;
 
     @FXML
-    private TableView<?> table;
+    private TableView<Account> table;
 
     @FXML
-    private TextField addModalNumber;
+    private TableColumn<Account, String> number;
 
     @FXML
-    private TextField addModalSum;
+    private TableColumn<Account, Double> sum;
 
     @FXML
-    void onAddButtonClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("addModal.fxml"));
-        DialogPane addDialogPane = fxmlLoader.load();
+    private TableColumn<Account, Boolean> blocked;
 
-        HelloController addModelController = fxmlLoader.getController();
+    private void initData() {
+        JThread jThread = new JThread("load", accountList);
+        jThread.loadFile();
+        this.accountList = jThread.getAccountList();
+    }
 
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setDialogPane(addDialogPane);
-        dialog.setTitle("Добавить счет");
+    @FXML
+    private void initialize() {
+        // Загрузка данных из файла
+        initData();
 
-        Optional<ButtonType> clickedButton = dialog.showAndWait();
+        // Привязка колонок таблицы
+        number.setCellValueFactory(new PropertyValueFactory<Account, String>("number"));
+        sum.setCellValueFactory(new PropertyValueFactory<Account, Double>("sum"));
+        blocked.setCellValueFactory(new PropertyValueFactory<Account, Boolean>("blocked"));
 
-        if (clickedButton.get() == ButtonType.OK) {
-            addAccount();
+        // Отрисовка сущностей в таблице
+        table.setItems(accountList);
+
+        // Редактирование полей в таблице
+        number.setCellFactory(TextFieldTableCell.<Account> forTableColumn());
+        number.setOnEditCommit((TableColumn.CellEditEvent<Account, String> event) -> {
+            TablePosition<Account, String> pos = event.getTablePosition();
+
+            String number = event.getNewValue();
+
+            int row = pos.getRow();
+            Account account = event.getTableView().getItems().get(row);
+
+            account.setNumber(number);
+        });
+    }
+
+    @FXML
+    void onAddButtonClick () {
+        FXMLLoader loader = createWindow("addModal.fxml", "Добавление счета");
+        addAccount(loader);
+    }
+
+    @FXML
+    void onDeleteButtonClick () {
+        int indexRemove = table.getSelectionModel().getSelectedIndex();
+
+        if (indexRemove != -1) {
+            accountList.remove(indexRemove);
+            table.setItems(accountList);
         }
     }
 
-    public void addAccount () {
-        this.account = new Account();
+    @FXML
+    void onSaveButtonClick () {
+        JThread jThread = new JThread("save", accountList);
+        jThread.saveFile();
+    }
 
-        System.out.println(this.account.getNumber());
+    private FXMLLoader createWindow(String FXMLName,String stageTitle) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLName));
 
-        StringProperty x = new SimpleStringProperty(this.account.getNumber());
+        try {
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle(stageTitle);
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        addModalNumber.textProperty().bindBidirectional(x);
+        return loader;
+    }
+
+    public void addAccount (FXMLLoader loader) {
+        AddModalController addModalController = loader.getController();
+        String number = addModalController.getNumber();
+        double sum = addModalController.getSum();
+
+        if (addModalController.isSubmitted()) {
+            accountList.add(new Account(number, sum, false));
+            table.setItems(accountList);
+        }
     }
 }

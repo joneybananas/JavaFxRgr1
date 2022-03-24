@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -18,9 +17,8 @@
     </padding>
    <GridPane hgap="30.0" prefHeight="762.0" prefWidth="843.0" vgap="30.0">
      <columnConstraints>
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="156.0" prefWidth="165.3333740234375" />
-       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="148.66670735677087" prefWidth="167.33333333333337" />
-         <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="109.0" />
+       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="156.0" prefWidth="387.666748046875" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="110.333251953125" />
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="60.33333333333326" prefWidth="99.00004069010413" />
      </columnConstraints>
      <rowConstraints>
@@ -41,7 +39,27 @@
                <TextField fx:id="searchInput" promptText="Введите номер счета" GridPane.rowIndex="1" />
             </children>
          </GridPane>
-         <GridPane GridPane.columnIndex="1">
+         <TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="1">
+           <columns>
+             <TableColumn fx:id="number" prefWidth="329.33331298828125" text="Номер счета" />
+             <TableColumn fx:id="sum" minWidth="0.0" prefWidth="280.0" text="Сумма на счете" />
+               <TableColumn fx:id="blocked" prefWidth="150.00004069010413" resizable="false" text="Блокировка" />
+           </columns>
+         </TableView>
+         <GridPane prefHeight="78.0" prefWidth="141.0" vgap="5.0" GridPane.columnIndex="1">
+           <columnConstraints>
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+            <children>
+               <Button fx:id="addBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="9.0" prefWidth="141.0" text="Добавить" />
+               <Button fx:id="deleteBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onDeleteButtonClick" prefHeight="9.0" prefWidth="141.0" text="Удалить" GridPane.rowIndex="1" />
+            </children>
+         </GridPane>
+         <GridPane prefHeight="78.0" prefWidth="141.0" vgap="5.0" GridPane.columnIndex="2">
             <columnConstraints>
                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
@@ -50,23 +68,10 @@
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-               <Label text="Сортировка" />
-               <ChoiceBox maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.rowIndex="1" />
+               <Button fx:id="saveBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveButtonClick" prefHeight="9.0" prefWidth="141.0" text="Сохранить" />
+               <Button fx:id="countBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="9.0" prefWidth="141.0" text="Посчитать" GridPane.rowIndex="1" />
             </children>
-            <GridPane.margin>
-               <Insets />
-            </GridPane.margin>
          </GridPane>
-         <Button fx:id="addBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddButtonClick" text="Добавить" GridPane.columnIndex="2" />
-         <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="1">
-           <columns>
-             <TableColumn prefWidth="329.33331298828125" text="Номер счета" />
-             <TableColumn minWidth="0.0" prefWidth="280.0" text="Сумма на счете" />
-               <TableColumn prefWidth="87.3333740234375" resizable="false" text="Блокировка" />
-               <TableColumn prefWidth="64.0" resizable="false" sortable="false" text="Удалить" />
-           </columns>
-         </TableView>
-         <Button fx:id="countBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Посчитать" GridPane.columnIndex="3" />
       </children>
    </GridPane>
 </VBox>

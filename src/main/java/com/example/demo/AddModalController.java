@@ -1,18 +1,56 @@
 package com.example.demo;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class AddModalController {
 
     @FXML
-    private TextField addModalNumber;
+    private Button button;
 
     @FXML
-    private TextField addModalSum;
+    private TextField number, sum;
 
-    public void printNumber () {
-        System.out.println(addModalNumber.getText());
+    @FXML
+    private Label error;
+
+    private String number_;
+    private double sum_;
+    private boolean submitted = false;
+
+    public String getNumber() {
+        return number_;
     }
 
+    public double getSum() {
+        return sum_;
+    }
+
+    public boolean isSubmitted() {
+        return submitted;
+    }
+
+    @FXML
+    public void onSubmit () {
+        number_ = number.getText();
+
+        if (number_.isEmpty()) {
+            error.setText("Поля не должны быть пустыми");
+            return;
+        }
+
+        try {
+            sum_ = Double.parseDouble(sum.getText());
+        } catch (NumberFormatException e) {
+            error.setText("Сумма должна быть числом");
+            return;
+        }
+
+        submitted = true;
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
+    }
 }

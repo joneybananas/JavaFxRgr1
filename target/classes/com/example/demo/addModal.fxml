@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ButtonType?>
-<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-
-<DialogPane prefHeight="291.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
-   <buttonTypes>
-      <ButtonType fx:constant="OK" />
-      <ButtonType fx:constant="CANCEL" />
-   </buttonTypes>
-   <header>
+<VBox prefHeight="220.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.AddModalController">
+   <children>
       <GridPane hgap="20.0" prefHeight="152.0" prefWidth="370.0" vgap="20.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -35,7 +30,7 @@
               </rowConstraints>
                <children>
                   <Label text="Номер счета" />
-                  <TextField fx:id="addModalNumber" GridPane.rowIndex="1" />
+                  <TextField fx:id="number" GridPane.rowIndex="1" />
                </children>
             </GridPane>
             <GridPane hgap="10.0" prefHeight="0.0" prefWidth="370.0" vgap="10.0" GridPane.rowIndex="1">
@@ -48,13 +43,26 @@
                </rowConstraints>
                <children>
                   <Label text="Сумма на счету" />
-                  <TextField fx:id="addModalSum" GridPane.rowIndex="1" />
+                  <TextField fx:id="sum" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>
       </GridPane>
-   </header>
+      <GridPane hgap="20.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="159.6666259765625" minWidth="10.0" prefWidth="70.6666259765625" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.33338165283203" minWidth="10.0" prefWidth="240.00004069010419" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="button" mnemonicParsing="false" onAction="#onSubmit" text="Добавить" />
+            <Label fx:id="error" prefHeight="17.0" prefWidth="250.0" textFill="RED" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+   </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
-</DialogPane>
+</VBox>
