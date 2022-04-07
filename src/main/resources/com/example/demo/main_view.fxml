@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.MainViewController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -20,6 +20,7 @@
        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="156.0" prefWidth="387.666748046875" />
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="110.333251953125" />
          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="60.33333333333326" prefWidth="99.00004069010413" />
+         <ColumnConstraints />
      </columnConstraints>
      <rowConstraints>
        <RowConstraints maxHeight="179.66668701171875" minHeight="0.0" prefHeight="62.33333333333334" vgrow="SOMETIMES" />
@@ -36,14 +37,14 @@
            </rowConstraints>
             <children>
                <Label text="Поиск по номеру счета" />
-               <TextField fx:id="searchInput" promptText="Введите номер счета" GridPane.rowIndex="1" />
+               <TextField fx:id="searchInput" onKeyTyped="#onSearchInput" promptText="Введите номер счета" GridPane.rowIndex="1" />
             </children>
          </GridPane>
          <TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="1">
            <columns>
              <TableColumn fx:id="number" prefWidth="329.33331298828125" text="Номер счета" />
              <TableColumn fx:id="sum" minWidth="0.0" prefWidth="280.0" text="Сумма на счете" />
-               <TableColumn fx:id="blocked" prefWidth="150.00004069010413" resizable="false" text="Блокировка" />
+               <TableColumn fx:id="weight" prefWidth="150.00004069010413" resizable="false" text="Weight" />
            </columns>
          </TableView>
          <GridPane prefHeight="78.0" prefWidth="141.0" vgap="5.0" GridPane.columnIndex="1">
@@ -69,7 +70,7 @@
             </rowConstraints>
             <children>
                <Button fx:id="saveBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSaveButtonClick" prefHeight="9.0" prefWidth="141.0" text="Сохранить" />
-               <Button fx:id="countBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="9.0" prefWidth="141.0" text="Посчитать" GridPane.rowIndex="1" />
+               <Button fx:id="countBtn" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCountButtonClick" prefHeight="9.0" prefWidth="141.0" text="Посчитать" GridPane.rowIndex="1" />
             </children>
          </GridPane>
       </children>

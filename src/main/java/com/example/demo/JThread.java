@@ -25,9 +25,9 @@ public class JThread extends Thread {
     public void saveFile(){
         System.out.printf("%s started... \n", Thread.currentThread().getName());
         try{
-            PrintWriter pw = new PrintWriter(new FileOutputStream("D:\\Study\\8_semester\\Java\\demo\\src\\main\\resources\\com\\example\\demo\\data.txt"));
+            PrintWriter pw = new PrintWriter(new FileOutputStream("src\\main\\resources\\com\\example\\demo\\data.txt")); //D:\Study\8_semester\Java\demo\src\main\resources\com\example\demo\
             for (Account account : accountList){
-                pw.println(account); // call toString() on club, like club.toString()
+                pw.println(account);
             }
             pw.close();
             System.out.printf("ok");
@@ -43,7 +43,7 @@ public class JThread extends Thread {
 
         try {
             List<String> list = null;
-            list = Files.readAllLines(Paths.get("D:\\Study\\8_semester\\Java\\demo\\src\\main\\resources\\com\\example\\demo\\data.txt"));
+            list = Files.readAllLines(Paths.get("src\\main\\resources\\com\\example\\demo\\data.txt")); //"D:\\Study\\8_semester\\Java\\demo\\src\\main\\resources\\com\\example\\demo\\
             String[] param;
             for (String row : list){
                 try{
@@ -56,11 +56,11 @@ public class JThread extends Thread {
 
                 accountList.add(new Account(param[0],
                         Double.parseDouble(param[1]),
-                        param[2].equals("true")));
+                        Double.parseDouble(param[2])));
             }
         } catch (IOException e) {
             System.out.println("Thread has been interrupted");
         }
-        System.out.printf("%s fiished... \n", Thread.currentThread().getName());
+        System.out.printf("%s finished... \n", Thread.currentThread().getName());
     }
 }

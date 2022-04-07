@@ -12,14 +12,17 @@ public class AddModalController {
     private Button button;
 
     @FXML
-    private TextField number, sum;
+    private TextField number, sum,weight;
 
     @FXML
     private Label error;
 
     private String number_;
     private double sum_;
+    private double weight_;
+
     private boolean submitted = false;
+
 
     public String getNumber() {
         return number_;
@@ -29,9 +32,15 @@ public class AddModalController {
         return sum_;
     }
 
+    public double getWeight() {
+        return weight_;
+    }
+
+
     public boolean isSubmitted() {
         return submitted;
     }
+
 
     @FXML
     public void onSubmit () {
@@ -48,6 +57,14 @@ public class AddModalController {
             error.setText("Сумма должна быть числом");
             return;
         }
+
+        try {
+            weight_ = Double.parseDouble(weight.getText());
+        } catch (NumberFormatException e) {
+            error.setText("Вес должен быть числом");
+            return;
+        }
+
 
         submitted = true;
         Stage stage = (Stage) button.getScene().getWindow();

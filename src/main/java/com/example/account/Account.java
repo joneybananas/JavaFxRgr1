@@ -3,12 +3,12 @@ package com.example.account;
 public class Account {
     private String number;
     private double sum;
-    private boolean blocked;
+    private double weight;
 
-    public Account (String number, double sum, boolean blocked) {
+    public Account (String number, double sum, double weight) {
         this.number = number;
         this.sum = sum;
-        this.blocked = blocked;
+        this.weight = weight;
     }
 
     public void setNumber (String number) {
@@ -27,16 +27,16 @@ public class Account {
         return this.sum;
     }
 
-    public boolean isBlocked() {
-        return blocked;
+    public double getWeight() {
+        return weight;
     }
 
-    public void setBlocked(boolean blocked) {
-        this.blocked = blocked;
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override
     public String toString(){
-        return number + " " + sum + " " + blocked;
+        return number + " " + sum + " " + weight;
     }
 }
