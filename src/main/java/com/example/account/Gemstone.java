@@ -1,11 +1,11 @@
 package com.example.account;
 
-public class Account {
+public class Gemstone {
     private String number;
     private double sum;
     private double weight;
 
-    public Account(String number, double sum, double weight) {
+    public Gemstone(String number, double sum, double weight) {
         this.number = number;
         this.sum = sum;
         this.weight = weight;
