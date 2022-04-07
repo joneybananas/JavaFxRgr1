@@ -36,15 +36,15 @@
              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
            </rowConstraints>
             <children>
-               <Label text="Поиск по номеру счета" />
-               <TextField fx:id="searchInput" onKeyTyped="#onSearchInput" promptText="Введите номер счета" GridPane.rowIndex="1" />
+               <Label text="Поиск по названию" />
+               <TextField fx:id="searchInput" onKeyTyped="#onSearchInput" promptText="Введите название камня" GridPane.rowIndex="1" />
             </children>
          </GridPane>
          <TableView fx:id="table" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="1">
            <columns>
-             <TableColumn fx:id="number" prefWidth="329.33331298828125" text="Номер счета" />
-             <TableColumn fx:id="sum" minWidth="0.0" prefWidth="280.0" text="Сумма на счете" />
-               <TableColumn fx:id="weight" prefWidth="150.00004069010413" resizable="false" text="Weight" />
+             <TableColumn fx:id="number" prefWidth="329.33331298828125" text="Название камня" />
+             <TableColumn fx:id="sum" minWidth="0.0" prefWidth="280.0" text="Цена камня" />
+               <TableColumn fx:id="weight" prefWidth="150.00004069010413" resizable="false" text="Вес камня" />
            </columns>
          </TableView>
          <GridPane prefHeight="78.0" prefWidth="141.0" vgap="5.0" GridPane.columnIndex="1">

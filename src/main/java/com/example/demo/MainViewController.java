@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.account.Account;
+import com.example.account.Gemstone;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
@@ -18,7 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainViewController {
-    private ObservableList<Account> accountList = FXCollections.observableArrayList();
+    private ObservableList<Gemstone> gemstoneList = FXCollections.observableArrayList();
 
     @FXML
     private Button addBtn, deleteBtn, countBtn, saveBtn;
@@ -27,21 +26,21 @@ public class MainViewController {
     private TextField searchInput;
 
     @FXML
-    private TableView<Account> table;
+    private TableView<Gemstone> table;
 
     @FXML
-    private TableColumn<Account, String> number;
+    private TableColumn<Gemstone, String> number;
 
     @FXML
-    private TableColumn<Account, String> sum;
+    private TableColumn<Gemstone, String> sum;
 
     @FXML
-    private TableColumn<Account, String> weight;
+    private TableColumn<Gemstone, String> weight;
 
     private void initData() {
-        JThread jThread = new JThread("load", accountList);
+        JThread jThread = new JThread("load", gemstoneList);
         jThread.loadFile();
-        this.accountList = jThread.getAccountList();
+        this.gemstoneList = jThread.getAccountList();
         Logger.log(String.format("Запуск приложения"));
     }
 
@@ -52,29 +51,29 @@ public class MainViewController {
         initData();
 
         // Привязка колонок таблицы
-        number.setCellValueFactory(new PropertyValueFactory<Account, String>("number"));
+        number.setCellValueFactory(new PropertyValueFactory<Gemstone, String>("number"));
         sum.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(String.valueOf(cellData.getValue().getSum())));
         weight.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(String.valueOf(cellData.getValue().getWeight())));
 
         // Отрисовка сущностей в таблице
-        table.setItems(accountList);
+        table.setItems(gemstoneList);
 
         // Редактирование полей в таблице
-        number.setCellFactory(TextFieldTableCell.<Account> forTableColumn());
-        number.setOnEditCommit((TableColumn.CellEditEvent<Account, String> event) -> {
-            TablePosition<Account, String> pos = event.getTablePosition();
+        number.setCellFactory(TextFieldTableCell.<Gemstone> forTableColumn());
+        number.setOnEditCommit((TableColumn.CellEditEvent<Gemstone, String> event) -> {
+            TablePosition<Gemstone, String> pos = event.getTablePosition();
 
             String number = event.getNewValue();
 
             int row = pos.getRow();
-            Account account = event.getTableView().getItems().get(row);
+            Gemstone gemstone = event.getTableView().getItems().get(row);
 
-            account.setNumber(number);
-            Logger.log(String.format("Номер счета %s изменился на %s", event.getOldValue(), account.getNumber()));
+            gemstone.setNumber(number);
+            Logger.log(String.format("Номер счета %s изменился на %s", event.getOldValue(), gemstone.getNumber()));
         });
 
-        sum.setCellFactory(TextFieldTableCell.<Account> forTableColumn());
-        sum.setOnEditCommit( (TableColumn.CellEditEvent<Account, String> event) -> {
+        sum.setCellFactory(TextFieldTableCell.<Gemstone> forTableColumn());
+        sum.setOnEditCommit( (TableColumn.CellEditEvent<Gemstone, String> event) -> {
             String oldValue = event.getOldValue();
             String sum = event.getNewValue();
 
@@ -85,17 +84,17 @@ public class MainViewController {
                 return;
             }
 
-            TablePosition<Account, String> pos = event.getTablePosition();
+            TablePosition<Gemstone, String> pos = event.getTablePosition();
 
             int row = pos.getRow();
-            Account account = event.getTableView().getItems().get(row);
+            Gemstone gemstone = event.getTableView().getItems().get(row);
 
-            account.setSum(Double.parseDouble(sum));
-            Logger.log(String.format("Сумма на счету %s изменилась с %s на %s", account.getNumber(), oldValue, sum));
+            gemstone.setSum(Double.parseDouble(sum));
+            Logger.log(String.format("Сумма на счету %s изменилась с %s на %s", gemstone.getNumber(), oldValue, sum));
         });
 
-        weight.setCellFactory(TextFieldTableCell.<Account> forTableColumn());
-        weight.setOnEditCommit( (TableColumn.CellEditEvent<Account, String> event) -> {
+        weight.setCellFactory(TextFieldTableCell.<Gemstone> forTableColumn());
+        weight.setOnEditCommit( (TableColumn.CellEditEvent<Gemstone, String> event) -> {
             String oldValue = event.getOldValue();
             String weight = event.getNewValue();
 
@@ -106,19 +105,19 @@ public class MainViewController {
                 return;
             }
 
-            TablePosition<Account, String> pos = event.getTablePosition();
+            TablePosition<Gemstone, String> pos = event.getTablePosition();
 
             int row = pos.getRow();
-            Account account = event.getTableView().getItems().get(row);
+            Gemstone gemstone = event.getTableView().getItems().get(row);
 
-            account.setSum(Double.parseDouble(weight));
-            Logger.log(String.format("Вес каминя  %s изменён с %s на %s", account.getNumber(), oldValue, weight));
+            gemstone.setSum(Double.parseDouble(weight));
+            Logger.log(String.format("Вес каминя  %s изменён с %s на %s", gemstone.getNumber(), oldValue, weight));
         });
     }
 
     @FXML
     void onAddButtonClick () {
-        FXMLLoader loader = createWindow("addModal.fxml", "Добавление счета");
+        FXMLLoader loader = createWindow("addModal.fxml", "Добавление камня");
         addAccount(loader);
     }
 
@@ -127,16 +126,16 @@ public class MainViewController {
         int indexRemove = table.getSelectionModel().getSelectedIndex();
 
         if (indexRemove != -1) {
-            Account account = table.getSelectionModel().getSelectedItem();
-            accountList.remove(account);
+            Gemstone gemstone = table.getSelectionModel().getSelectedItem();
+            gemstoneList.remove(gemstone);
             filterAndRender();
-            Logger.log(String.format("Удален счет с номером %s", account.getNumber()));
+            Logger.log(String.format("Удален счет с номером %s", gemstone.getNumber()));
         }
     }
 
     @FXML
     void onSaveButtonClick () {
-        JThread jThread = new JThread("save", accountList);
+        JThread jThread = new JThread("save", gemstoneList);
         jThread.saveFile();
         Logger.log(String.format("Сохранение изменений"));
     }
@@ -148,9 +147,9 @@ public class MainViewController {
         try {
             Parent root = loader.load();
             CountModalController controller = loader.getController();
-            controller.initData(accountList);
+            controller.initData(gemstoneList);
             Stage stage = new Stage();
-            stage.setTitle("Сводка по счетам");
+            stage.setTitle("Сводка по камням");
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
@@ -188,15 +187,15 @@ public class MainViewController {
         double weight = addModalController.getWeight();
 
         if (addModalController.isSubmitted()) {
-            Account account = new Account(number, sum, weight);
-            accountList.add(account);
+            Gemstone gemstone = new Gemstone(number, sum, weight);
+            gemstoneList.add(gemstone);
             filterAndRender();
-            Logger.log(String.format("Добавлен новый счет с номером %s и суммой %s", account.getNumber(), account.getSum()));
+            Logger.log(String.format("Добавлен новый счет с номером %s и суммой %s", gemstone.getNumber(), gemstone.getSum()));
         }
     }
 
     private void filterAndRender() {
         String searchStr = searchInput.getText();
-        table.setItems(accountList.filtered(account -> account.getNumber().contains(searchStr)));
+        table.setItems(gemstoneList.filtered(gemstone -> gemstone.getNumber().contains(searchStr)));
     }
 }

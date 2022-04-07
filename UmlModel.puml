@@ -1,0 +1,9 @@
+@startuml
+'https://plantuml.com/class-diagram
+ class Gemstone {
+    private String number;
+    private double sum;
+    private double weight;
+}
+
+@enduml

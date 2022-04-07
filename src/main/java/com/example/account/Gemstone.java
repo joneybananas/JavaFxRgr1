@@ -5,7 +5,7 @@ public class Account {
     private double sum;
     private double weight;
 
-    public Account (String number, double sum, double weight) {
+    public Account(String number, double sum, double weight) {
         this.number = number;
         this.sum = sum;
         this.weight = weight;

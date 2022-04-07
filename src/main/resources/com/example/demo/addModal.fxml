@@ -12,71 +12,36 @@
 <VBox prefHeight="220.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.AddModalController">
    <children>
       <GridPane hgap="20.0" prefHeight="152.0" prefWidth="370.0" vgap="20.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="227.0" minHeight="0.0" prefHeight="57.66664632161458" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="374.0" minHeight="0.0" prefHeight="75.00002034505208" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <GridPane hgap="10.0" prefHeight="120.0" prefWidth="370.0" vgap="10.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="23.33331298828125" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="208.00003051757812" minHeight="10.0" prefHeight="204.66668701171875" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label text="Номер счета" />
-                  <TextField fx:id="number" GridPane.rowIndex="1" />
-               </children>
-            </GridPane>
-            <GridPane hgap="10.0" prefHeight="0.0" prefWidth="370.0" vgap="10.0" GridPane.rowIndex="1">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="37.66668701171875" minHeight="10.0" prefHeight="25.000001907348633" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="60.99999809265137" minHeight="10.0" prefHeight="60.99999809265137" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Label text="Сумма на счету" />
-                  <TextField fx:id="sum" GridPane.rowIndex="1" />
-               </children>
-            </GridPane>
 
-             <GridPane hgap="10.0" prefHeight="500.0" prefWidth="370.0" vgap="120.0" GridPane.rowIndex="1">
-                 <columnConstraints>
-                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                 </columnConstraints>
-                 <rowConstraints>
-                     <RowConstraints maxHeight="37.66668701171875" minHeight="10.0" prefHeight="25.000001907348633" vgrow="SOMETIMES" />
-                     <RowConstraints maxHeight="60.99999809265137" minHeight="10.0" prefHeight="60.99999809265137" vgrow="SOMETIMES" />
-                 </rowConstraints>
+              <children>
+
+                  <Label text="Название камня" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                  <TextField fx:id="number" GridPane.columnIndex="1"  GridPane.rowIndex="0" />
+               </children>
+
+
+
+               <children>
+                  <Label text="Цена камня" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                  <TextField fx:id="sum" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+
+
                  <children>
-                     <Label text="Вес камня" />
-                     <TextField fx:id="weight" GridPane.rowIndex="1" />
+
+                     <Label text="Вес камня" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                     <TextField fx:id="weight" GridPane.columnIndex="01" GridPane.rowIndex="2"/>
                  </children>
              </GridPane>
 
          </children>
-      </GridPane>
-      <GridPane hgap="20.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="159.6666259765625" minWidth="10.0" prefWidth="70.6666259765625" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="260.33338165283203" minWidth="10.0" prefWidth="240.00004069010419" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+
+
          <children>
             <Button fx:id="button" mnemonicParsing="false" onAction="#onSubmit" text="Добавить" />
-            <Label fx:id="error" prefHeight="17.0" prefWidth="250.0" textFill="RED" GridPane.columnIndex="1" />
+            <Label fx:id="error" prefHeight="17.0" prefWidth="250.0" textFill="RED" GridPane.columnIndex="6" />
          </children>
-      </GridPane>
-   </children>
+
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>

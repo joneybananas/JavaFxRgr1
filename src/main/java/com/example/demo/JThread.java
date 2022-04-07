@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.account.Account;
+import com.example.account.Gemstone;
 import javafx.collections.ObservableList;
 
 import java.io.FileOutputStream;
@@ -11,23 +11,23 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class JThread extends Thread {
-    ObservableList<Account> accountList;
+    ObservableList<Gemstone> gemstoneList;
 
-    JThread(String name,  ObservableList<Account> accountList){
+    JThread(String name,  ObservableList<Gemstone> gemstoneList){
         super(name);
-        this.accountList = accountList;
+        this.gemstoneList = gemstoneList;
     }
 
-    public ObservableList<Account> getAccountList() {
-        return accountList;
+    public ObservableList<Gemstone> getAccountList() {
+        return gemstoneList;
     }
 
     public void saveFile(){
         System.out.printf("%s started... \n", Thread.currentThread().getName());
         try{
             PrintWriter pw = new PrintWriter(new FileOutputStream("src\\main\\resources\\com\\example\\demo\\data.txt")); //D:\Study\8_semester\Java\demo\src\main\resources\com\example\demo\
-            for (Account account : accountList){
-                pw.println(account);
+            for (Gemstone gemstone : gemstoneList){
+                pw.println(gemstone);
             }
             pw.close();
             System.out.printf("ok");
@@ -54,7 +54,7 @@ public class JThread extends Thread {
 
                 param = row.split(" ");
 
-                accountList.add(new Account(param[0],
+                gemstoneList.add(new Gemstone(param[0],
                         Double.parseDouble(param[1]),
                         Double.parseDouble(param[2])));
             }
